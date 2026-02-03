@@ -25,16 +25,9 @@ function getNextWeekendDates() {
   return [nextSat.getDate(), nextSun.getDate()];
 }
 
-function readStdin() {
-  return new Promise((res) => {
-    let d = '';
-    process.stdin.on('data', (c) => (d += c));
-    process.stdin.on('end', () => res(JSON.parse(d)));
-  });
-}
-
 (async () => {
-  const row = await readStdin();
+  // ✅ GitHub Actions 에서 전달된 계정 정보
+  const row = JSON.parse(process.env.ACCOUNT_JSON);
 
   const loginId = row.loginId;
   const loginPw = row.loginPw;
@@ -69,7 +62,7 @@ function readStdin() {
 
     await page.waitForLoadState('networkidle');
 
-    // 차주 토/일
+    // 차주 토 / 일
     const targetDays = getNextWeekendDates();
 
     for (const day of targetDays) {
