@@ -31,15 +31,17 @@ jobs:
           node -e '
           const arr = JSON.parse(process.env.ACCOUNTS_JSON);
           const { spawnSync } = require("child_process");
+
           for (const row of arr) {
             console.log("RUN ACCOUNT");
-            spawnSync("node", ["reserve_real.js"], {
-  env: {
-    ...process.env,
-    ACCOUNT_JSON: JSON.stringify(row)
-  },
-  stdio: "inherit"
-});
 
+            spawnSync("node", ["reserve_real.js"], {
+              env: {
+                ...process.env,
+                ACCOUNT_JSON: JSON.stringify(row)
+              },
+              stdio: "inherit"
+            });
           }
           '
+
