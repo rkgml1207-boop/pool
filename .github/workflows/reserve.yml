@@ -34,8 +34,12 @@ jobs:
           for (const row of arr) {
             console.log("RUN ACCOUNT");
             spawnSync("node", ["reserve_real.js"], {
-              input: JSON.stringify(row),
-              stdio: "inherit"
-            });
+  env: {
+    ...process.env,
+    ACCOUNT_JSON: JSON.stringify(row)
+  },
+  stdio: "inherit"
+});
+
           }
           '
